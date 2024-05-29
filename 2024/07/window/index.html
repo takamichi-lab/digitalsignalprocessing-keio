@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ディジタル信号処理 第07回-2 窓関数</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a1f16296-fbdd-4c4a-b5fa-3e752dc689be" class="page sans"><header><h1 class="page-title">ディジタル信号処理 第07回-2 窓関数</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f3458668-f085-4ab2-b922-0672480757ef"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">データを区切って離散フーリエ変換するにはどうしたら？ → <strong>窓関数</strong></div></figure><nav id="1c820306-b7a7-4f4a-80e7-cd08f345b88e" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14478b29-c256-43cc-8c26-7db35318d0e4">0. 復習：フーリエ変換とは時間信号を複素正弦波の和で表す</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bdd66ccc-5a74-44be-bd66-b16c97820c89">1. 離散時間信号を切り出して離散フーリエ変換する</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c3bdf61c-54af-4486-897a-658e93f8d213">2. 窓関数：信号を切り出すための関数</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#436f91aa-73ae-46bb-bee0-a17db00da031">3. 短時間フーリエ変換</a></div></nav><h1 id="14478b29-c256-43cc-8c26-7db35318d0e4" class="">0. 復習：フーリエ変換とは時間信号を複素正弦波の和で表す</h1><p id="8059f411-f660-4034-9ad2-f53a56ffcc78" class="">単一周波数の正弦波をフーリエ変換したら、単一の周波数のみが非零の値になるはずだ。正確には”複素”正弦波を用いるため、正の周波数と負の周波数の2つが現れる。</p><figure id="9d2a18fe-0784-4940-88b5-99f78757930a" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>ω</mi><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>j</mi></mrow></mfrac><mrow><mo fence="true">(</mo><msup><mi>e</mi><mrow><mi>j</mi><mi>ω</mi><mi>t</mi></mrow></msup><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>j</mi><mi>ω</mi><mi>t</mi></mrow></msup><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sin(\omega t) = \frac{1}{2j}\left(e^{j\omega t} - e^{-j\omega t}  \right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2019em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">jω</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">jω</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></span></div></figure><p id="9593a391-e3e5-414b-9073-ab9afb2093b6" class="">カッコ内の第1項が正の周波数、第2項が負の周波数を表す。それらの係数が周波数表現である。</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e8ac5eff-f01c-47ed-8492-a9f099acaf45"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">このような直感を身に着けると、フーリエ変換の理解が進む</div></figure><h1 id="bdd66ccc-5a74-44be-bd66-b16c97820c89" class="">1. 離散時間信号を切り出して離散フーリエ変換する</h1><p id="68e6fac4-a909-4b09-96f7-e7048ac5bc96" class="">ここで2 つの信号を考える。左は時間信号、右はパワースペクトルである。</p><p id="ae7e629e-9649-4911-aa8e-6f6c27bd43b5" class="">ケース①ー信号①：4 Hz の正弦波、<strong>1秒間</strong></p><div id="91e289a2-4ad4-493c-ba25-782269aabc6c" class="column-list"><div id="24168f84-95a4-47b7-aa86-7f6cf4fbaf8b" style="width:50%" class="column"><figure id="e4079f67-95e7-4116-ac23-509b47b0a7d0" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled.png"><img style="width:331px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled.png"/></a></figure></div><div id="b3508dad-73c9-4346-8403-3dc15ccbd79e" style="width:50%" class="column"><figure id="f77127e3-1fdd-4309-aa04-55ce65fc87f9" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%201.png"><img style="width:577px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%201.png"/></a></figure></div></div><p id="7980deb9-7eab-4926-99b2-7bd112d30be9" class="">ケース①ー信号②：4.5 Hz の正弦波、<strong>1秒間</strong></p><div id="1b8a03d3-95a2-4160-ab05-045daf19828f" class="column-list"><div id="37fbeb63-1a20-4535-80a0-89e3257cc428" style="width:50%" class="column"><figure id="b259815e-27cb-49ae-bbc3-d9f097d92c21" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%202.png"><img style="width:572px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%202.png"/></a></figure></div><div id="f68adfe7-f96a-463c-a7a3-820137f7afb2" style="width:50%" class="column"><figure id="21c3c2dc-b336-4679-aaf6-f400f096d528" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%203.png"><img style="width:585px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%203.png"/></a></figure></div></div><p id="a3bc1db1-f404-48fa-bc13-ecbd7706fbe0" class="">復習を踏まえれば、これらを離散フーリエ変換すると単一周波数のみが非零になるはずだ。しかしながら、信号②のほうはそうなっておらず、近傍の周波数に染み出しが起きている。この染み出しをリップル（リプル）と呼ぶ。</p><p id="86595f61-b299-4805-ac1d-b5323daad615" class="">　では今度は、周波数を変えずに信号の長さを2倍にした結果を見てみよう。</p><p id="624651f0-7434-4278-893e-1aa0b9be87e4" class="">ケース②ー信号①：4 Hz の正弦波、<strong>2秒間</strong></p><div id="ab18d1d8-c18e-45c1-a610-8c46dacc631e" class="column-list"><div id="d512dccf-5261-41bb-be6a-cd1b9332b288" style="width:50%" class="column"><figure id="b1c8ec73-9e81-489c-b45b-bee0031affdc" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%204.png"><img style="width:571px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%204.png"/></a></figure></div><div id="0947dea6-7b9a-4952-8c07-52244bb7c908" style="width:50%" class="column"><figure id="d53cacf2-8fd1-4054-8943-2b1630857f8c" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%205.png"><img style="width:331px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%205.png"/></a></figure></div></div><p id="6a0b889c-97ec-4cec-99b0-2910e6900caa" class=""> ケース②ー信号②：4.5 Hz の正弦波、<strong>2秒間</strong></p><div id="85446641-ae02-470f-be1e-700953cd663a" class="column-list"><div id="0d623014-4d63-4b77-b59d-8fcfd8be4409" style="width:50%" class="column"><figure id="4cfe942a-4902-4471-b2b6-a1958d65f0c2" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%206.png"><img style="width:567px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%206.png"/></a></figure></div><div id="7edf42a7-7341-439a-86be-74c1ebdc1c08" style="width:50%" class="column"><figure id="653cb78f-c67a-4192-8b48-30e2e2abf73d" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%207.png"><img style="width:593px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%207.png"/></a></figure></div></div><p id="30682618-c885-4018-878c-ac8a3940c6e2" class="">信号の長さを変えただけなのに、こちらは直感に合う。これらの違いは何だろうか？これに答えるために，各信号が切り取り区間の中に何周期分入っているかを調べよう．</p><div id="25dedb2d-4d16-4ce0-8a71-5406d2bcbda7" class="column-list"><div id="24c57a07-be69-4d1b-ba9c-73612c3bb9b2" style="width:50%" class="column"><p id="9699e0ba-0a23-4a35-97db-f318337c8d63" class="">ケース①： 1秒 </p><ul id="5f577cea-302f-42ea-ad11-70d4a369369c" class="bulleted-list"><li style="list-style-type:disc">信号①： <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1 / (1 / 4) = 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mopen">(</span><span class="mord">1/4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span> [周期]</li></ul><ul id="31ed37d4-bf87-4a99-a177-b7c435d20c44" class="bulleted-list"><li style="list-style-type:disc">信号②： <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>4.5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4.5</mn></mrow><annotation encoding="application/x-tex">1 / (1 / 4.5) = 4.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mopen">(</span><span class="mord">1/4.5</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4.5</span></span></span></span></span><span>﻿</span></span> [周期] </li></ul></div><div id="07100255-89d4-48d1-b0b4-27cc2147063a" style="width:50%" class="column"><p id="1fc2873d-dad8-40b1-9d20-85c39a6dc973" class="">ケース②： 2秒</p><ul id="d0ce01ac-5fae-4338-971f-c0c117f597b4" class="bulleted-list"><li style="list-style-type:disc">信号①：<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">2 / (1 / 4) = 8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2/</span><span class="mopen">(</span><span class="mord">1/4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span></span><span>﻿</span></span> [周期]</li></ul><ul id="c407d8fb-e008-4676-8d4d-9358519be2c2" class="bulleted-list"><li style="list-style-type:disc">信号②：<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>4.5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">2 / (1 / 4.5) = 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2/</span><span class="mopen">(</span><span class="mord">1/4.5</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span> [周期] </li></ul></div></div><p id="c5730376-100d-410d-be1e-d7f355132796" class="">これを見る限り，入っている周期がぴったり整数周期にならないときに，前述した問題が生じているようだ．この理由には「離散フーリエ変換が信号の周期性を仮定していること」が関係する。</p><figure id="d2b20914-8189-4f8f-931f-dc6753583b1c" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%208.png"><img style="width:576px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%208.png"/></a></figure><p id="300ef34a-18a3-44df-9c97-355940701138" class="">　前回までで勉強したように離散フーリエ変換は切り出した時間区間の外側で信号が周期的に繰り返されると仮定している。すなわち、区間の端で不連続が起きると所望した結果にならない。ではどうする？</p><ul id="0c9e63d3-37ce-4c49-8755-c1a413494801" class="bulleted-list"><li style="list-style-type:disc">信号の周期ぴったりになるように時間区間を変える？ <mark class="highlight-pink"><strong>→ 周波数成分を知るために離散フーリエ変換するのに、離散フーリエ変換しないと時間区間を求められない？ あまり現実的でない</strong></mark></li></ul><ul id="aa37255c-0335-4473-8e2b-c91810ef6ac5" class="bulleted-list"><li style="list-style-type:disc">区間の端が連続的につながるように信号の切り出し方を変えればよいのでは？ <mark class="highlight-blue"><strong>→ 窓関数</strong></mark></li></ul><h1 id="c3bdf61c-54af-4486-897a-658e93f8d213" class="">2. 窓関数：信号を切り出すための関数</h1><p id="e7d3afc2-88d4-4ad2-9fb5-4ac4395306a8" class="">窓関数 (window function)とは信号に乗算して切り出す関数である。窓関数の多くは両端が 0 に近くなるように設計される。</p><figure id="e5bf8f7a-e155-43cf-83fa-23140a9357c4" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%209.png"><img style="width:432px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%209.png"/></a></figure><p id="e0be9f7a-fa42-4acf-a2cb-89a162cdf852" class="">窓関数にはいくつかの種類がある。</p><div id="d13e9790-1e38-4683-9e86-526ebc713042" class="column-list"><div id="4278d78c-fa3f-4b7d-ad39-3a0ba469baf4" style="width:50%" class="column"><p id="6a0e08aa-cf78-41d9-9876-fbc3292baae7" class="">ハニング窓</p><figure id="10788c9e-eec8-43e5-bac1-79241fad0bc2" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2010.png"><img style="width:1130px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2010.png"/></a></figure><p id="46a0b0fe-975c-4853-bd95-21299d3318ac" class="">ガウス窓</p><figure id="6eca2b74-b1a3-4803-9776-476887b3c928" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2011.png"><img style="width:1128px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2011.png"/></a></figure></div><div id="da095ad3-9bb3-4849-a169-7cf8038611f2" style="width:50%" class="column"><p id="478abc71-e891-4c57-bcaf-24d15d9f6714" class="">ハミング窓</p><figure id="95842292-dbd7-4158-8716-6473787f7518" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2012.png"><img style="width:331px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2012.png"/></a></figure><p id="41db56e8-7171-4dac-a19a-49781e2355c1" class="">三角窓（バートレット窓）</p><figure id="7dd3c7da-91e4-43a6-ac0e-e3fdf46a4b50" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2013.png"><img style="width:331px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2013.png"/></a></figure></div></div><p id="10041be7-5401-483b-ad67-f07011352984" class="">これらのような窓関数をかけると、前述したリプル現象を抑圧できる。なお、前述したような単純に信号を切り出すことは、矩形窓（四角形の窓）という窓関数で切り出することと等価である。下図は、矩形窓で切り出した場合とハミング窓で切り出した場合の比較である。これまで議論されたリプルが軽減されていることがわかる。</p><figure id="7f59bda8-06f3-46d3-9cd2-98979d450633" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2014.png"><img style="width:480px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2014.png"/></a></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="7e6ae19b-89d2-42cc-91bd-5fc166b8b5a0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">窓関数は信号を変えることに相当するため、得られる周波数表現も変わる。種々の窓関数のうち、どれを選べばよいだろうか？ 本講義では省略するが、興味のある人は、周波数分解能とダイナミックレンジについて調べてほしい。</div></figure><h1 id="436f91aa-73ae-46bb-bee0-a17db00da031" class="">3. 短時間フーリエ変換</h1><p id="d56a81c3-2a7d-40ba-85a9-83b4daeb104a" class="">時々刻々と変化する時系列信号を考えよう。例えば人間の音声のように「あいうえお」と発音内容が変わる信号だ。このような信号全体に対して離散フーリエ変換することは、あまり意味がない。なぜか？</p><p id="ab24d447-43a2-4f10-8352-42e165088667" class="">　離散フーリエ変換は信号を複素正弦波の和で表すものであり、その振幅・初期位相などは時間で変化しない。故に、時々刻々と変化する信号全体を一気に離散フーリエ変換すると、変化する要素をとらえられない。</p><p id="53e1a79e-6864-4f19-816d-13e7de95c881" class="">　そこで、信号を短時間の時間区間ごとに切り出して、それぞれの区間で離散フーリエ変換すればよいことになる。この切り出しは、前述した窓関数で実現できる。</p><figure id="601ce809-607e-4d15-a90f-6535d94d2049" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2015.png"><img style="width:384px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2015.png"/></a></figure><p id="98d507c6-d957-4389-a2ec-1ac67ff1fe64" class="">　この変換のことを<strong>短時間フーリエ変換 (short-time Fourier transform; STFT) </strong>という。この STFT を用いると、各時間-周波数でどのような振幅値を持っているかを示す振幅スペクトログラムを描画することもできる。下図は、横軸が時刻、縦軸が周波数、色の明暗が振幅を表す。</p><figure id="3349df86-766b-4327-a9a2-a62c66e747ea" class="image"><a href="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2016.png"><img style="width:480px" src="%E3%83%86%E3%82%99%E3%82%A3%E3%82%B7%E3%82%99%E3%82%BF%E3%83%AB%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86%20%E7%AC%AC07%E5%9B%9E-2%20%E7%AA%93%E9%96%A2%E6%95%B0%20a1f16296fbdd4c4ab5fa3e752dc689be/Untitled%2016.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
