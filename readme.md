@@ -13,6 +13,6 @@
     - [講義資料(インパルス不変，双一次変換)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/09/iir_filter/index.html)
     - [レポート](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/09/report/index.html)
 - 第10回：
-    - [講義資料(インパルス不変，FIRフィルタ)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/10/fir_filter/index.html)
+    - [講義資料(FIRフィルタ)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/10/fir_filter/index.html)
     - [レポート](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/10/report/index.html)
 
