@@ -15,4 +15,8 @@
 - 第10回：
     - [講義資料(FIRフィルタ)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/10/fir_filter/index.html)
     - [レポート](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/10/report/index.html)
+- 第11回：
+    - [講義資料(相関関数)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/11/correlation/index.html)
+    - [講義資料(線形予測)](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/11/linear_prediction/index.html)
+    - [レポート](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024/11/report/index.html)
 
