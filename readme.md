@@ -4,6 +4,7 @@
 ## 2025年度
 - 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/01.pdf)
 - 第02回：[フーリエ級数展開・フーリエ変換から離散フーリエ変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/02.pdf)
+- 第03回：[ラプラス変換から z 変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/03.pdf)
 
 ## 2024年度 (01~06はディジタル信号処理Aの講義を参照)
 - 第07回：
