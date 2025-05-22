@@ -8,6 +8,7 @@
 - 第04回：[インパルス応答と伝達関数，安定性](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/04.pdf)
 - 第05回：[フィルタ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/05.pdf)
 - 第06回：[高速フーリエ変換と短時間フーリエ変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/06.pdf)
+- 第07回：[説明](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07.pdf), [課題](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07-kadai.pdf)
 
 ## 2024年度 (01~06はディジタル信号処理Aの講義を参照)
 - 第07回：
