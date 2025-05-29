@@ -2,6 +2,7 @@
 慶應義塾大学 理工学部 講義
 
 ## 2025年度
+### ディジタル信号処理A
 - 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/01.pdf)
 - 第02回：[フーリエ級数展開・フーリエ変換から離散フーリエ変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/02.pdf)
 - 第03回：[ラプラス変換から z 変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/03.pdf)
@@ -9,6 +10,9 @@
 - 第05回：[フィルタ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/05.pdf)
 - 第06回：[高速フーリエ変換と短時間フーリエ変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/06.pdf)
 - 第07回：[説明](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07.pdf), [課題](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07-kadai.pdf)
+
+### ディジタル信号処理B
+- 第08回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/08.pdf)
 
 ## 2024年度 (01~06はディジタル信号処理Aの講義を参照)
 - 第07回：
