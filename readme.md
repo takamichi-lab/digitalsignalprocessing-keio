@@ -18,6 +18,7 @@
 - 第11回：[微分可能信号処理](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/11.pdf)
 - 第12回：[グラフ信号処理入門](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/12.pdf)
 - 第13回：[ウェーブレット変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/13.pdf)
+- 第14回：[説明](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/14.pdf), [課題](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/14-kadai.pdf)
 
 ## 2024年度 (01~06はディジタル信号処理Aの講義を参照)
 - 第07回：
