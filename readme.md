@@ -1,5 +1,8 @@
 # ディジタル信号処理 
 慶應義塾大学 理工学部 講義
+### ディジタル信号処理A
+- 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/01.pdf)
+
 
 ## 2025年度
 ### ディジタル信号処理A
