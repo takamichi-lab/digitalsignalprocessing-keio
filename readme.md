@@ -2,7 +2,7 @@
 慶應義塾大学 理工学部 講義
 ### ディジタル信号処理A
 - 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/01.pdf)
-
+- 第02回：[フーリエ級数展開・フーリエ変換・離散フーリエ変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/02.pdf)
 
 ## 2025年度
 ### ディジタル信号処理A
