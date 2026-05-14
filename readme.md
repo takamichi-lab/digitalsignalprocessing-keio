@@ -6,6 +6,7 @@
 - 第03回：[ラプラス変換から z 変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/03.pdf)
 - 第04回：[インパルス応答と伝達関数，安定性](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/04.pdf)
 - 第05回：[フィルタ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/05.pdf)
+- 第06回：[高速フーリエ変換と短時間フーリエ変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/06.pdf)
 
 ## 2025年度
 ### ディジタル信号処理A
