@@ -12,25 +12,6 @@
 ### ディジタル信号処理B
 - 第07回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/08.pdf)
 
-## 2025年度
-- [講義資料一覧](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
-
-- 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/01.pdf)
-- 第02回：[フーリエ級数展開・フーリエ変換から離散フーリエ変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/02.pdf)
-- 第03回：[ラプラス変換から z 変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/03.pdf)
-- 第04回：[インパルス応答と伝達関数，安定性](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/04.pdf)
-- 第05回：[フィルタ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/05.pdf)
-- 第06回：[高速フーリエ変換と短時間フーリエ変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/06.pdf)
-- 第07回：[説明](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07.pdf), [課題](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/07-kadai.pdf)
-
-### ディジタル信号処理B
-- 第08回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/08.pdf)
-- 第09回
-- 第10回：[ベクトル・行列微分の基礎と応用](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/10.pdf)
-- 第11回：[微分可能信号処理](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/11.pdf)
-- 第12回：[グラフ信号処理入門](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/12.pdf)
-- 第13回：[ウェーブレット変換](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/13.pdf)
-- 第14回：[説明](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/14.pdf), [課題](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/14-kadai.pdf)
-
-## 2024年度 (01~06はディジタル信号処理Aの講義を参照)
-- [講義資料一覧](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2024)
+## 過去年度の資料
+- [2025年度](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
+- [2024年度](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2024)
