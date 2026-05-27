@@ -13,7 +13,7 @@
 - 第07回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/08.pdf)
 
 ## 2025年度
-- [講義資料一覧](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025)
+- [講義資料一覧](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
 
 - 第01回：[イントロダクション，ディジタル信号](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/01.pdf)
 - 第02回：[フーリエ級数展開・フーリエ変換から離散フーリエ変換へ](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2025/02.pdf)
