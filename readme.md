@@ -10,7 +10,7 @@
 - 第07回：[演習１](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/07.pdf) (提出不要，講義後課題なし)
 
 ### ディジタル信号処理B
-- 第07回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/08.pdf)
+- 第08回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/08.pdf)
 
 ## 過去年度の資料
 - [2025年度](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
