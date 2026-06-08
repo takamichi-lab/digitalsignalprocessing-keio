@@ -11,6 +11,7 @@
 
 ### ディジタル信号処理B
 - 第08回：[適応信号処理，相関関数](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/08.pdf)
+- 第09回：[ベクトル・行列微分](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/09.pdf)
 
 ## 過去年度の資料
 - [2025年度](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
