@@ -16,7 +16,7 @@
 - 第11回：[グラフ信号処理](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/11.pdf)
 - 第12回：[多重解像度解析](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/12.pdf)
 - 第13回：[音声信号処理](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/13.pdf)
-- 第14回：[音声信号処理](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/14.pdf)
+- 第14回：[演習２](https://takamichi-lab.github.io/digitalsignalprocessing-keio/2026/14.pdf)
 
 ## 過去年度の資料
 - [2025年度](https://github.com/takamichi-lab/digitalsignalprocessing-keio/tree/main/2025)
